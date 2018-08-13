@@ -10,6 +10,8 @@ require('./services/passport');
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true });
 
+app.use(express.json());
+
 app.use(cookieSession({
   maxAge: 30*24*60*60*1000,
   keys: [keys.cookieKey]  
@@ -18,7 +20,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-app.listen(5000);
+app.listen(PORT);
